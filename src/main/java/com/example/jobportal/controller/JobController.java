@@ -22,10 +22,10 @@ public class JobController {
     @Autowired
     UserService userService;
 
-//    @PostMapping(path = "add-job")
-//    public Long addJob(@RequestBody JobModel jobModel) {
-//        return jobService.addJob(jobModel);
-//    }
+    @PostMapping(path = "add-job")
+    public Long addJob(@RequestBody JobModel jobModel) {
+        return jobService.addJob(jobModel);
+    }
 
     //    @DeleteMapping(path="/{id}")
 //    public void deleteById(@PathVariable("id")Long id) {
@@ -38,7 +38,7 @@ public class JobController {
     }
 
     @PostMapping("/apply")
-    public void applyToJob(UserModel model) {
+    public void applyToJob(@RequestBody UserModel model) {
         Long id = userService.applyToJob(model);
         log.info("Applied to job : {} ", id );
     }

@@ -2,8 +2,7 @@ package com.example.jobportal.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.io.File;
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Data
@@ -13,15 +12,16 @@ import java.util.List;
 @Entity
 public class UserModel {
 
-    private String userName;
+    private String firstName;
+    private String lastName;
     @NonNull
     private String userEmail;
     @NonNull
     @Id
     private String phoneNumber;
     private List<String> primarySkills;
-    @NonNull
-    private File resume;
+    //    @NonNull
+//    private MultipartFile resume;
     @NonNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "job_id", referencedColumnName = "ID")
@@ -30,11 +30,11 @@ public class UserModel {
     @Override
     public String toString() {
         return "UserModel{" +
-                "userName='" + userName + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", primarySkills=" + primarySkills +
-                ", resume=" + resume +
                 ", jobId=" + jobId +
                 '}';
     }
