@@ -1,7 +1,7 @@
 package com.example.jobportal.controller;
 
-import com.example.jobportal.models.JobModel;
-import com.example.jobportal.models.UserModel;
+import com.example.jobportal.entities.JobModel;
+import com.example.jobportal.model.request.UserApplicationRequest;
 import com.example.jobportal.service.JobService;
 import com.example.jobportal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/jobs")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000/")
 public class JobController {
 
     @Autowired
@@ -38,8 +39,8 @@ public class JobController {
     }
 
     @PostMapping("/apply")
-    public void applyToJob(@RequestBody UserModel model) {
-        Long id = userService.applyToJob(model);
+    public void applyToJob(@RequestBody UserApplicationRequest request) throws Exception {
+        Long id = userService.applyToJob(request);
         log.info("Applied to job : {} ", id );
     }
 

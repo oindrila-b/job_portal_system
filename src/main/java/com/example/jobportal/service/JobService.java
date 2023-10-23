@@ -1,6 +1,6 @@
 package com.example.jobportal.service;
 
-import com.example.jobportal.models.JobModel;
+import com.example.jobportal.entities.JobModel;
 import com.example.jobportal.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

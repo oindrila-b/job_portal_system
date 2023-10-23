@@ -1,6 +1,6 @@
 package com.example.jobportal.repository;
 
-import com.example.jobportal.models.JobModel;
+import com.example.jobportal.entities.JobModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,11 @@
-package com.example.jobportal.models;
+package com.example.jobportal.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -12,20 +14,19 @@ import java.util.List;
 @Entity
 public class UserModel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String firstName;
     private String lastName;
     @NonNull
     private String userEmail;
     @NonNull
-    @Id
     private String phoneNumber;
     private List<String> primarySkills;
-    //    @NonNull
-//    private MultipartFile resume;
     @NonNull
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "job_id", referencedColumnName = "ID")
-    private JobModel jobId;
+    @OneToMany(mappedBy = "userModel")
+    private Set<JobModel> jobId = new HashSet<>();
 
     @Override
     public String toString() {

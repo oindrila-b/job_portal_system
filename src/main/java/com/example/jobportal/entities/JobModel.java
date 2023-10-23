@@ -1,4 +1,4 @@
-package com.example.jobportal.models;
+package com.example.jobportal.entities;
 
 import com.example.jobportal.enums.JobType;
 import com.example.jobportal.enums.WorkModel;
@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +29,9 @@ public class JobModel {
     private List<String> requiredSkills;
     private JobType jobType;
     private WorkModel workModel;
+    @ManyToOne
+     @JoinColumn(name="user")
+    UserModel userModel;
 
     @Override
     public String toString() {
