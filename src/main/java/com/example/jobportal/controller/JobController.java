@@ -2,7 +2,6 @@ package com.example.jobportal.controller;
 
 import com.example.jobportal.exceptions.JobNotFoundException;
 import com.example.jobportal.models.JobModel;
-import com.example.jobportal.models.UserModel;
 import com.example.jobportal.models.request.UserApplicationRequestModel;
 import com.example.jobportal.service.JobService;
 import com.example.jobportal.service.UserService;
