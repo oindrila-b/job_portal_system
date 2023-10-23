@@ -1,7 +1,9 @@
 package com.example.jobportal.controller;
 
+import com.example.jobportal.exceptions.JobNotFoundException;
 import com.example.jobportal.models.JobModel;
 import com.example.jobportal.models.UserModel;
+import com.example.jobportal.models.request.UserApplicationRequestModel;
 import com.example.jobportal.service.JobService;
 import com.example.jobportal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +40,8 @@ public class JobController {
     }
 
     @PostMapping("/apply")
-    public void applyToJob(@RequestBody UserModel model) {
-        Long id = userService.applyToJob(model);
+    public void applyToJob(@RequestBody UserApplicationRequestModel requestModel) throws JobNotFoundException {
+        Long id = userService.applyToJob(requestModel);
         log.info("Applied to job : {} ", id );
     }
 

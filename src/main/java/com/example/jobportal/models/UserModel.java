@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -23,9 +24,7 @@ public class UserModel {
     //    @NonNull
 //    private MultipartFile resume;
     @NonNull
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "job_id", referencedColumnName = "ID")
-    private JobModel jobId;
+    private Set<Long> jobId;
 
     @Override
     public String toString() {
