@@ -4,13 +4,16 @@ import com.example.jobportal.exceptions.JobNotFoundException;
 import com.example.jobportal.models.JobModel;
 import com.example.jobportal.models.UserModel;
 import com.example.jobportal.models.request.UserApplicationRequestModel;
+import com.example.jobportal.models.response.UserList;
 import com.example.jobportal.repository.JobRepository;
 import com.example.jobportal.repository.UserApplicationsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -53,6 +56,35 @@ public class UserService {
                 .phoneNumber(requestModel.getPhoneNumber())
                 .primarySkills(requestModel.getPrimarySkills())
                 .jobId(jobIds).build();
+    }
+
+    public List<UserModel> getAllUsers() {
+        return userApplicationsRepository.findAll();
+    }
+
+    public List<UserList> getUserList(){
+        List<UserList> modelList = new ArrayList<>();
+        for (UserModel m:getAllUsers()) {
+            Set<JobModel> jobModels=getJobModels(m.getJobId());
+            UserList userList = UserList.builder()
+                    .userEmail(m.getUserEmail())
+                    .firstName(m.getFirstName())
+                    .lastName(m.getLastName())
+                    .phoneNumber(m.getPhoneNumber())
+                    .primarySkills(m.getPrimarySkills())
+                    .jobId(jobModels)
+                    .build();
+            modelList.add(userList);
+        }
+        return modelList;
+    }
+
+    private Set<JobModel> getJobModels(Set<Long> ids){
+        Set<JobModel> jobModels = new HashSet<>();
+        for (Long id:ids) {
+            jobModels.add(jobRepository.findById(id).get());
+        }
+        return jobModels;
     }
 
 }

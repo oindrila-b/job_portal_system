@@ -2,7 +2,9 @@ package com.example.jobportal.controller;
 
 import com.example.jobportal.exceptions.JobNotFoundException;
 import com.example.jobportal.models.JobModel;
+import com.example.jobportal.models.UserModel;
 import com.example.jobportal.models.request.UserApplicationRequestModel;
+import com.example.jobportal.models.response.UserList;
 import com.example.jobportal.service.JobService;
 import com.example.jobportal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/jobs")
 @Slf4j
+@CrossOrigin("http://localhost:3000")
 public class JobController {
 
     @Autowired
@@ -42,6 +45,11 @@ public class JobController {
     public void applyToJob(@RequestBody UserApplicationRequestModel requestModel) throws JobNotFoundException {
         Long id = userService.applyToJob(requestModel);
         log.info("Applied to job : {} ", id );
+    }
+
+    @GetMapping(path = "/usersList")
+    public ResponseEntity<List<UserList>> getUsers() {
+        return new ResponseEntity<>(userService.getUserList(),HttpStatus.OK);
     }
 
 

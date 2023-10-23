@@ -21,8 +21,6 @@ public class UserModel {
     @Id
     private String phoneNumber;
     private List<String> primarySkills;
-    //    @NonNull
-//    private MultipartFile resume;
     @NonNull
     private Set<Long> jobId;
 
