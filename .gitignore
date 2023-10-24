@@ -7,6 +7,7 @@ target/test-classes
 target/surefire-reports
 target/generated-sources
 target/generated-test-sources
+target/site
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

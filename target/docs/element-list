@@ -1,0 +1,9 @@
+com.example.jobportal
+com.example.jobportal.controller
+com.example.jobportal.enums
+com.example.jobportal.exceptions
+com.example.jobportal.models
+com.example.jobportal.models.request
+com.example.jobportal.models.response
+com.example.jobportal.repository
+com.example.jobportal.service
