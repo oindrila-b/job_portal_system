@@ -5,6 +5,10 @@ package com.example.jobportal.exceptions;
  * match with any jobId in the database.
  * **/
 public class JobNotFoundException extends Exception{
+    /***
+     *  Calls super to throw exception.
+     * @param id for the job id that wasn't found
+     * */
     public JobNotFoundException(Long id) {
         System.out.printf("Job with id %d not found", id);
     }

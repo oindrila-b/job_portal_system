@@ -61,6 +61,7 @@ public class JobController {
     /***
      *  Maps the POST request to add a new job entry in the database.
      * @param requestModel The request entity from the client side for a client to apply to the job.
+     * @throws Exception
      * **/
     @PostMapping("/apply")
     public void applyToJob(@RequestBody UserApplicationRequestModel requestModel) throws Exception {

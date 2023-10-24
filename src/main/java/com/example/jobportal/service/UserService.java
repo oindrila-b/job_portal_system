@@ -39,6 +39,8 @@ public class UserService {
      * This method is used by the user to apply to a new job . It takes the request
      * model, creates a User Model and the persists in the database.
      * @param requestModel the model that goes created to UserModel to get persisted.
+     * @throws JobNotFoundException
+     * @throws RequestParameterNullException
      * **/
     public Long applyToJob(UserApplicationRequestModel requestModel) throws JobNotFoundException, RequestParameterNullException {
         if (requestModel.getUserEmail().isEmpty() || requestModel.getFirstName().isEmpty()||
@@ -54,6 +56,7 @@ public class UserService {
 
     /***
      * Withdraws application from the database by deleting the entry.
+     * @param phoneNumber to delete a user application based on entry
      * **/
     public void withdrawApplication(String phoneNumber) {
         userApplicationsRepository.deleteById(phoneNumber);

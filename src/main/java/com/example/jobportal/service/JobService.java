@@ -39,6 +39,7 @@ public class JobService {
 
     /*****
      * This method deletes a job by ID.
+     * @param id  to delete the Job based on the given ID
      * **/
     public void deleteById(Long id) {
         jobRepository.deleteAllById(Collections.singleton(id));
