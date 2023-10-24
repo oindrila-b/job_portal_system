@@ -12,6 +12,8 @@ target/docs/legal
 target/docs/resources
 target/docs/index-files
 target/docs/script-dir
+target/docs/overview-summary.html
+target/docs/index.html
 !**/src/main/**/target/
 !**/src/test/**/target/
 
