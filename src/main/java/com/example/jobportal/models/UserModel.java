@@ -2,15 +2,17 @@ package com.example.jobportal.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.util.List;
-import java.util.Set;
 
+import java.util.List;
+/****
+ * This is the Entity that gets saved in the database.
+ * **/
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table
 public class UserModel {
 
     private String firstName;
@@ -21,8 +23,11 @@ public class UserModel {
     @Id
     private String phoneNumber;
     private List<String> primarySkills;
+
     @NonNull
-    private Set<Long> jobId;
+    @OneToMany
+    @JoinColumn(name="jobs")
+    private List<JobModel> jobModels;
 
     @Override
     public String toString() {
@@ -32,7 +37,7 @@ public class UserModel {
                 ", userEmail='" + userEmail + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", primarySkills=" + primarySkills +
-                ", jobId=" + jobId +
+                ", jobId=" + jobModels +
                 '}';
     }
 }

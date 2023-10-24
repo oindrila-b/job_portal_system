@@ -4,12 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
 import java.util.List;
+
+/****
+ * This class represents the JSON request that the control  ler would accept
+ * and create a UserModel to persist in the database.
+ * **/
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class UserApplicationRequestModel {
     private String firstName;
     private String lastName;

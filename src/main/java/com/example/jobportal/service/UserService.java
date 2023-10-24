@@ -16,19 +16,34 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/*****
+ *  The service layer for all user related processing. This class is responsible
+ *   for application of a new user, getting all the user, creating user model.
+ * **/
 @Service
 @Slf4j
 public class UserService {
+    /***
+     * The repository has access to the job table in the database
+     * **/
     @Autowired
     JobRepository jobRepository;
+    /***
+     * The repository has access to the job table in the database
+     * **/
     @Autowired
     UserApplicationsRepository userApplicationsRepository;
 
+    /*****
+     * This method is used by the user to apply to a new job . It takes the request
+     * model, creates a User Model and the persists in the database.
+     * @param requestModel the model that goes created to UserModel to get persisted.
+     * **/
     public Long applyToJob(UserApplicationRequestModel requestModel) throws JobNotFoundException {
             UserModel model = createUserModel(requestModel);
        UserModel user=  userApplicationsRepository.save(model);
         log.info("User Application Details :  {} " , 1 );
-        return 1L;
+        return requestModel.getJobId();
     }
 
     public void withdrawApplication(String phoneNumber) {
@@ -36,28 +51,36 @@ public class UserService {
         log.info("User Application with phone NUmber {} Deleted. " , phoneNumber );
     }
 
+    /******
+     * This method is used to create a user model from a request sent by the client.
+     * @param requestModel the model that goes created to UserModel.
+     * @return UserModel
+     * **/
     private UserModel createUserModel(UserApplicationRequestModel requestModel) throws JobNotFoundException {
-        Set<Long> jobIds = new HashSet<>();
+        List<JobModel> jobIds = new ArrayList<>();
         if (jobRepository.findById(requestModel.getJobId()).isEmpty()) {
             throw new JobNotFoundException(requestModel.getJobId());
         }
         if (userApplicationsRepository.existsById(requestModel.getPhoneNumber())) {
             log.info("User with phone number {} exists", requestModel.getPhoneNumber());
             if (userApplicationsRepository.findById(requestModel.getPhoneNumber()).isPresent()) {
-                jobIds = userApplicationsRepository.findById(requestModel.getPhoneNumber()).get().getJobId();
+                jobIds = userApplicationsRepository.findById(requestModel.getPhoneNumber()).get().getJobModels();
                 log.info("Retrieved Job Ids {}",jobIds);
             }
         }
-        jobIds.add(requestModel.getJobId());
+        jobIds.add(getJobModel(requestModel.getJobId()));
         return UserModel.builder()
                 .firstName(requestModel.getFirstName())
                 .lastName(requestModel.getLastName())
                 .userEmail(requestModel.getUserEmail())
                 .phoneNumber(requestModel.getPhoneNumber())
                 .primarySkills(requestModel.getPrimarySkills())
-                .jobId(jobIds).build();
+                .jobModels(jobIds).build();
     }
 
+    /****
+     * This method gets a list of User persisted in the database.
+     * **/
     public List<UserModel> getAllUsers() {
         return userApplicationsRepository.findAll();
     }
@@ -65,7 +88,7 @@ public class UserService {
     public List<UserList> getUserList(){
         List<UserList> modelList = new ArrayList<>();
         for (UserModel m:getAllUsers()) {
-            Set<JobModel> jobModels=getJobModels(m.getJobId());
+            List<JobModel> jobModels= m.getJobModels();
             UserList userList = UserList.builder()
                     .userEmail(m.getUserEmail())
                     .firstName(m.getFirstName())
@@ -79,12 +102,16 @@ public class UserService {
         return modelList;
     }
 
-    private Set<JobModel> getJobModels(Set<Long> ids){
-        Set<JobModel> jobModels = new HashSet<>();
+    private List<JobModel> getJobModels(List<Long> ids){
+        List<JobModel> jobModels = new ArrayList<>();
         for (Long id:ids) {
             jobModels.add(jobRepository.findById(id).get());
         }
         return jobModels;
+    }
+
+    private JobModel getJobModel(Long jobId) {
+        return jobRepository.findById(jobId).get();
     }
 
 }

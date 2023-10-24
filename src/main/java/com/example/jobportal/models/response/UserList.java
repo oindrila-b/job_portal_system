@@ -22,6 +22,6 @@ public class UserList {
     private String phoneNumber;
     private List<String> primarySkills;
     @NonNull
-    private Set<JobModel> jobId;
+    private List<JobModel> jobId;
 
 }
