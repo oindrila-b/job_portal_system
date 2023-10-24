@@ -13,9 +13,9 @@ To run the project,
    1. `mvn clean install`
 2. This jar file can be found in the target folder.
    1. Run the jar file using the command :
-      1. `java -jar target/jar-fileName.jar` [here](https://github.com/oindrila-b/job_portal_system/blob/master/target/job-portal-0.0.1-SNAPSHOT.jar)
+      1. `java -jar target/jar-fileName.jar` 
 3. Once this is done the server would be up and running in the tomcat default port `8080`
 4. To access the job list navigate to `localhost:8080/api/v1/jobs`
 5. The client side would ideally send the requests but this can also be tested using postman.
 
-The Java Docs can be found in [target/docs](https://github.com/oindrila-b/job_portal_system/tree/master/target/docs/com/example/jobportal)  folder.
+The Java Docs can be found in `target/docs`
