@@ -1,6 +1,7 @@
 HELP.md
+
+!**/target/docs/com
 target/
-!target/docs/com
 !**/src/main/**/target/
 !**/src/test/**/target/
 
