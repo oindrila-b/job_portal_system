@@ -18,4 +18,4 @@ To run the project,
 4. To access the job list navigate to `localhost:8080/api/v1/jobs`
 5. The client side would ideally send the requests but this can also be tested using postman.
 
-The Java Docs can be found in `target/docs`  folder.
+The Java Docs can be found in [target/docs](https://github.com/oindrila-b/job_portal_system/tree/master/target/docs/com/example/jobportal)  folder.
