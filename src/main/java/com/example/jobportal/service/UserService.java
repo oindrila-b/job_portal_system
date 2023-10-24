@@ -1,6 +1,7 @@
 package com.example.jobportal.service;
 
 import com.example.jobportal.exceptions.JobNotFoundException;
+import com.example.jobportal.exceptions.RequestParameterNullException;
 import com.example.jobportal.models.JobModel;
 import com.example.jobportal.models.UserModel;
 import com.example.jobportal.models.request.UserApplicationRequestModel;
@@ -39,13 +40,21 @@ public class UserService {
      * model, creates a User Model and the persists in the database.
      * @param requestModel the model that goes created to UserModel to get persisted.
      * **/
-    public Long applyToJob(UserApplicationRequestModel requestModel) throws JobNotFoundException {
+    public Long applyToJob(UserApplicationRequestModel requestModel) throws JobNotFoundException, RequestParameterNullException {
+        if (requestModel.getUserEmail().isEmpty() || requestModel.getFirstName().isEmpty()||
+        requestModel.getLastName().isEmpty() || requestModel.getPhoneNumber().isEmpty()||
+            requestModel.getPrimarySkills().isEmpty() || requestModel.getJobId() == null) {
+            throw new RequestParameterNullException("Request Parameters are Null");
+        }
             UserModel model = createUserModel(requestModel);
        UserModel user=  userApplicationsRepository.save(model);
         log.info("User Application Details :  {} " , 1 );
         return requestModel.getJobId();
     }
 
+    /***
+     * Withdraws application from the database by deleting the entry.
+     * **/
     public void withdrawApplication(String phoneNumber) {
         userApplicationsRepository.deleteById(phoneNumber);
         log.info("User Application with phone NUmber {} Deleted. " , phoneNumber );
@@ -79,12 +88,16 @@ public class UserService {
     }
 
     /****
-     * This method gets a list of User persisted in the database.
+     * This method gets a list of UserModels persisted in the database.
      * **/
-    public List<UserModel> getAllUsers() {
+    private List<UserModel> getAllUsers() {
         return userApplicationsRepository.findAll();
     }
 
+
+    /****
+     * This method gets a list of UserList persisted in the database.
+     * **/
     public List<UserList> getUserList(){
         List<UserList> modelList = new ArrayList<>();
         for (UserModel m:getAllUsers()) {
@@ -110,6 +123,9 @@ public class UserService {
         return jobModels;
     }
 
+    /***
+     *  Retrieves a Job Model object based on the given ID
+     * ***/
     private JobModel getJobModel(Long jobId) {
         return jobRepository.findById(jobId).get();
     }

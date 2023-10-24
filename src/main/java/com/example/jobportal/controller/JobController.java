@@ -63,7 +63,7 @@ public class JobController {
      * @param requestModel The request entity from the client side for a client to apply to the job.
      * **/
     @PostMapping("/apply")
-    public void applyToJob(@RequestBody UserApplicationRequestModel requestModel) throws JobNotFoundException {
+    public void applyToJob(@RequestBody UserApplicationRequestModel requestModel) throws Exception {
         Long id = userService.applyToJob(requestModel);
         log.info("Applied to job : {} ", id );
     }

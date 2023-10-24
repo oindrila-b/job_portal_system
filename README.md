@@ -17,3 +17,5 @@ To run the project,
 3. Once this is done the server would be up and running in the tomcat default port `8080`
 4. To access the job list navigate to `localhost:8080/api/v1/jobs`
 5. The client side would ideally send the requests but this can also be tested using postman.
+
+The Java Docs can be found in `target/docs`  folder.
