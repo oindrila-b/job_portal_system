@@ -12,10 +12,6 @@ target/docs/legal
 target/docs/resources
 target/docs/index-files
 target/docs/script-dir
-target/docs/*.html
-target/docs/*js
-target/docs/*.css
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
